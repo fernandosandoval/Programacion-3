@@ -19,18 +19,18 @@ public class Lista{
 	public void orderedInsert(Object O) {
 		Nodo temp = new Nodo(O, null);
 		Object aux = temp.getInfo();
-		if(isEmpty()) {	
+		Nodo puntero = first;	
+		if((isEmpty())||((int)aux < (int)first.info)) {	
+			temp.setNext(first);
 			first = temp;
-			first.next = null;
-			System.out.println(first.info);
 			size++;
 		}
 		else {
-				while ((first.next != null)&&((first.next.compareTo(aux))!=1))     // mientras que O sea igual o mayor a first.next, avanzo
-					first = first.next;
-		        temp.setNext(first.next);              // en este punto, O es menor o igual a first, entonces
-		        first.setNext(temp);		           // agrego O en la lista
-		        
+				while ((puntero.next != null)&&((puntero.next.compareTo(aux))!=1)) {     // mientras que O sea igual o mayor a first.next, avanzo
+					puntero = puntero.next;
+				}
+		        temp.setNext(puntero.next);              // en este punto, O es menor o igual a first, entonces
+		        puntero.setNext(temp);		           // agrego O en la lista
 		     }
 	}
 	
@@ -70,16 +70,12 @@ public class Lista{
 	}
 	
 	public void generateList(Lista l1, Lista l2) {
-		 System.out.println("entro a generate");
 		 Lista li3 = new Lista();
 		 Nodo aux1 = l1.first;
 		 Nodo aux2 = l2.first;
 	   	 while (aux1 != null) {
-	   		 System.out.println(aux1.info);
 	   		while (aux2 != null) {
-	   			System.out.println(aux2.info);
 	   			 if (aux1.info.equals(aux2.info)) {
-	   				 System.out.println("Agrego a lista "+aux1.info);	 
 	   				 li3.orderedInsert(aux1.info);
 	   			 }
 	   			 aux2 = aux2.next;
