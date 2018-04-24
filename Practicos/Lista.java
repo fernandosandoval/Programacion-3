@@ -1,10 +1,14 @@
-package Practicos;
+package TP1;
+
+
 
 public class Lista{
 	
 	protected Nodo first;
+	protected Nodo aux;
 	protected int size;
 	public Lista(){
+		aux = null;
 		first = null;
 		size = 0;
 	}
@@ -15,6 +19,7 @@ public class Lista{
 		first = temp;
 		size++;
 	}
+	
 	
 	public void orderedInsert(Object O) {
 		Nodo temp = new Nodo(O, null);
@@ -34,6 +39,19 @@ public class Lista{
 		     }
 	}
 	
+	public void insertAtLast(Object O) {
+		Nodo temp = new Nodo (O, null);
+		if (isEmpty()) {
+			first = temp;
+		}
+		else {
+			Nodo puntero = first;
+			while(puntero.getNext()!=null) {
+				puntero = puntero.getNext();
+			}
+			puntero.setNext(temp);
+		}
+	}
 	
 	public void extract() {
 		if (first!= null) {
@@ -77,6 +95,23 @@ public class Lista{
 	   		while (aux2 != null) {
 	   			 if (aux1.info.equals(aux2.info)) {
 	   				 li3.orderedInsert(aux1.info);
+	   			 }
+	   			 aux2 = aux2.next;
+	   	   		 }
+	   		aux2 = l2.first;
+	   		aux1 = aux1.next;
+	   	 }
+	li3.print();   	 
+	}
+	
+	public void generateOrderedList(Lista l1, Lista l2) {     //cuando las listas ya estan ordenadas
+		 Lista li3 = new Lista();
+		 Nodo aux1 = l1.first;
+		 Nodo aux2 = l2.first;
+	   	 while (aux1 != null) {
+	   		while (aux2 != null) {
+	   			 if (aux1.info.equals(aux2.info)) {
+	   				 li3.insertAtLast(aux1.info);
 	   			 }
 	   			 aux2 = aux2.next;
 	   	   		 }

@@ -1,4 +1,4 @@
-package Practicos;
+package TP1;
 
 public class EjemploTimer{
 	
