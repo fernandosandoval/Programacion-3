@@ -16,17 +16,18 @@ public class Sim {
 		ArrayList<String> booksList100000 = new ArrayList<String>();
 		Lista resultListUnMillon = new Lista();
 		ArrayList<String> booksListUnMillon = new ArrayList<String>();
-		
-//      inicio carga para 20 elementos
-        
-        Timer time = new Timer();
-		time.start();        
-		resultList20 = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset1.csv");
-        resultList20.print();
-        String genero = "";
-        System.out.println("Ingrese el genero a buscar:");
+		String genero = "";
+		System.out.println("Ingrese el genero a buscar:");
         Scanner sc = new Scanner (System.in);
         genero = sc.nextLine ();
+        
+//      inicio carga para 20 elementos
+        
+        
+		Timer time = new Timer();
+		time.start();        
+		resultList20 = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset1.csv");
+        resultList20.print();     
         booksList20 = Buscador.agregarLibroXGenero(resultList20, genero);
         System.out.println("Los libros del género "+genero+" son");
         Buscador.mostrarLista(booksList20);
@@ -51,7 +52,7 @@ public class Sim {
         System.out.println();
         CSVWritter.listWriter(booksList1000,"salida1000.csv");
         double tiempo1000 = time.stop(); 
-        System.out.println("El tiempo empleado para una lista de 20 libros fue de "+tiempo20+" milisegundos");
+        System.out.println("El tiempo empleado para una lista de 1000 libros fue de "+tiempo1000+" milisegundos");
         System.out.println();
         System.out.println();
         System.out.println();
@@ -67,7 +68,7 @@ public class Sim {
         System.out.println();
         CSVWritter.listWriter(booksList100000,"salida100000.csv");
         double tiempo100000 = time.stop(); 
-        System.out.println("El tiempo empleado para una lista de 20 libros fue de "+tiempo20+" milisegundos");
+        System.out.println("El tiempo empleado para una lista de 100000 libros fue de "+tiempo100000+" milisegundos");
         System.out.println();
         System.out.println();
         System.out.println();
@@ -77,13 +78,13 @@ public class Sim {
         time.start();        
 		resultListUnMillon = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset3.csv");
         resultListUnMillon.print();
-        booksListUnMillon = Buscador.agregarLibroXGenero(resultList20, genero);
+        booksListUnMillon = Buscador.agregarLibroXGenero(resultListUnMillon, genero);
         System.out.println("Los libros del género "+genero+" son");
-        Buscador.mostrarLista(booksList20);
+        Buscador.mostrarLista(booksList100000);
         System.out.println();
-        CSVWritter.listWriter(booksList20,"salidaUnMillon.csv");
+        CSVWritter.listWriter(booksList100000,"salidaUnMillon.csv");
         double tiempoUnMillon = time.stop(); 
-        System.out.println("El tiempo empleado para una lista de 20 libros fue de "+tiempo20+" milisegundos");
+        System.out.println("El tiempo empleado para una lista de un millon de libros fue de "+tiempoUnMillon+" milisegundos");
         System.out.println();
         System.out.println();
         System.out.println();

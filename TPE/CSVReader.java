@@ -28,10 +28,10 @@ public class CSVReader {
                 		listaGeneros.insertGenre(generos[i]);                                   // agrego el genero a la lista
                         listaGeneros.insertBook(generos[i],tituloLibro);                        // agrego el libro a la lista de este genero
                 	}
-                	else                                                                        // el genero ya esta en la lista
+                	else                                                                        // el genero ya está en la lista
                 		listaGeneros.insertBook(generos[i], tituloLibro);
                 }
-                                                                                                // aumento en uno el indice para la siguiente iteracion del while
+                                                                                               
                 }
         } catch (IOException e) {
             e.printStackTrace();
