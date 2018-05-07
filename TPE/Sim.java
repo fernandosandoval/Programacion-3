@@ -1,8 +1,9 @@
 package TPE;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+
 
 public class Sim {
 
@@ -26,7 +27,7 @@ public class Sim {
         
 		Timer time = new Timer();
 		time.start();        
-		resultList20 = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset1.csv");
+		resultList20 = CSVReader.listLoader("c:/users/El Ente/Desktop/DataSets/dataset1.csv");
         resultList20.print();     
         booksList20 = Buscador.agregarLibroXGenero(resultList20, genero);
         System.out.println("Los libros del género "+genero+" son");
@@ -44,7 +45,7 @@ public class Sim {
 		
       
 		time.start();        
-		resultList1000 = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset2.csv");
+		resultList1000 = CSVReader.listLoader("c:/users/El Ente/Desktop/DataSets/dataset2.csv");
         resultList1000.print();
         booksList1000 = Buscador.agregarLibroXGenero(resultList1000, genero);
         System.out.println("Los libros del género "+genero+" son");
@@ -60,7 +61,7 @@ public class Sim {
 //      inicio carga para 100000 elementos		
 		
         time.start();        
-		resultList100000 = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset3.csv");
+		resultList100000 = CSVReader.listLoader("c:/users/El Ente/Desktop/DataSets/dataset3.csv");
         resultList100000.print();
         booksList100000 = Buscador.agregarLibroXGenero(resultList100000, genero);
         System.out.println("Los libros del género "+genero+" son");
@@ -76,13 +77,13 @@ public class Sim {
 //      inicio carga para 1000000 elementos		
 		
         time.start();        
-		resultListUnMillon = CSVReader.listLoader("c:/users/El Ente/workspace/programacion3/2018/src/TPE/dataset3.csv");
+		resultListUnMillon = CSVReader.listLoader("c:/users/El Ente/Desktop/DataSets/dataset4.csv");
         resultListUnMillon.print();
         booksListUnMillon = Buscador.agregarLibroXGenero(resultListUnMillon, genero);
         System.out.println("Los libros del género "+genero+" son");
-        Buscador.mostrarLista(booksList100000);
+        Buscador.mostrarLista(booksListUnMillon);
         System.out.println();
-        CSVWritter.listWriter(booksList100000,"salidaUnMillon.csv");
+        CSVWritter.listWriter(booksListUnMillon,"salidaUnMillon.csv");
         double tiempoUnMillon = time.stop(); 
         System.out.println("El tiempo empleado para una lista de un millon de libros fue de "+tiempoUnMillon+" milisegundos");
         System.out.println();
