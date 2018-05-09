@@ -20,6 +20,7 @@ public class Sim {
 		ar1.insert(1);
 		ar1.insert(9);
 		ar1.preOrder();
+		System.out.println();
 		if(ar1.hasElem(1))
 			System.out.println("El numero 1 está en el arbol");
 		  else

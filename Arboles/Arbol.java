@@ -2,67 +2,109 @@
 
 public class Arbol {
 
-	private class nodoArbol {
-        private Arbol hd;
-        private Arbol hi;
-        private int dato;
- 
-        private void nodoArbol(){
-            hd = null;
-            hi = null;
-            dato = 0;
-        }
+	private class Nodo{
+		private Integer dato;
+		private Arbol hijoIzq;
+		private Arbol hijoDer;
+		
+		protected Nodo() {
+			dato = null;
+			hijoIzq = null;
+			hijoDer = null;
+		}
+		
+		private Arbol getHijoIzq() {
+			return this.hijoIzq;
+		}
+		
+		private Arbol getHijoDer() {
+			return this.hijoDer;
+		}
+		
+		private int getDato() {
+			return this.dato;
+		}
+		
+		private void setDato(int dato) {
+			this.dato = dato;
+		}
+	}
+	
+	private Nodo raiz;
+	
+    public Arbol() {
+    	raiz = new Nodo();
     }
- 
-    public nodoArbol raiz;
- 
-    public Arbol(){
-        nodoArbol raiz = new nodoArbol();
-    }
+	
+	public Arbol(int n) {
+         raiz.setDato(n);
+         setHijoDer();
+         setHijoIzq();
+	}
  
     public boolean isEmpty(){
-        return (raiz == null);
+        return (raiz.dato == null);
+    }
+    
+    public Nodo getRoot() {
+    	return raiz;
+    }
+    
+    public Arbol getHijoIzq() {
+    	return raiz.getHijoIzq();
+    }
+    
+    public Arbol getHijoDer() {
+    	return raiz.getHijoDer(); 
+    }
+    
+    public void setHijoIzq() {
+    	raiz.hijoIzq = null;
+    }
+    
+    public void setHijoDer() {
+    	raiz.hijoDer = null;
     }
  
     public void insert(int a){
         if (isEmpty()) {
-            nodoArbol nuevo = new nodoArbol();
+            Nodo nuevo = new Nodo();
             nuevo.dato = a;
-            nuevo.hd = new Arbol();
-            nuevo.hi = new Arbol();
+            nuevo.hijoIzq = new Arbol();
+            nuevo.hijoDer = new Arbol();
             raiz = nuevo;
         }
         else {
-            if (a > raiz.dato) {
-                (raiz.hd).insert(a);
+            if (a > raiz.getDato()) {
+                (raiz.getHijoDer()).insert(a);
             }
-            if (a < raiz.dato){
-                (raiz.hi).insert(a);
+            if (a < raiz.getDato()){
+                (raiz.getHijoIzq()).insert(a);
             }
         }
     }
  
     public void preOrder(){
         if (!isEmpty()) {
-            System.out.print( raiz.dato + ", "  );
-            raiz.hi.preOrder();
-            raiz.hd.preOrder();
+            System.out.print( raiz.getDato() + ", "  );
+            raiz.getHijoIzq().preOrder();
+            raiz.getHijoDer().preOrder();
         }
     }
  
     public void inOrder(){
         if (!isEmpty()) {
-            raiz.hi.inOrder();
-            System.out.print( raiz.dato + ", "  );
-            raiz.hd.inOrder();
+            raiz.getHijoIzq().inOrder();
+            System.out.print( raiz.getDato() + ", "  );
+            raiz.getHijoDer().inOrder();
         }
     }
  
     public void posOrder(){
         if (!isEmpty()) {
-            raiz.hd.posOrder();
-            raiz.hi.posOrder();
-            System.out.print( raiz.dato + ", "  );
+            raiz.getHijoDer().posOrder();
+            raiz.getHijoIzq().posOrder();
+            System.out.print( raiz.getDato() + ", "  );
  
         }
     }
@@ -70,15 +112,15 @@ public class Arbol {
     public Arbol find(int a){
     	Arbol aux = null;
         if (!isEmpty()) {
-            if (a == raiz.dato) {
+            if (a == raiz.getDato()) {
             return this;
             }
             else {
-                if (a < raiz.dato) {
-                   aux = raiz.hi.find(a);
+                if (a < raiz.getDato()) {
+                   aux = this.raiz.getHijoIzq().find(a);
                 }
                 else {
-                   aux = raiz.hd.find(a);
+                   aux = this.raiz.getHijoDer().find(a);
                 }
             }
         }
@@ -87,11 +129,11 @@ public class Arbol {
  
     public boolean hasElem(int a){
     	while (!isEmpty()) {
-            if (a < raiz.dato) {
-            	return(raiz.hi.hasElem(a));
+            if (a < this.raiz.getDato()) {
+            	return(this.raiz.getHijoIzq().hasElem(a));
             }
-            else if (a > raiz.dato) {
-                    return(raiz.hd.hasElem(a));
+            else if (a > raiz.getDato()) {
+                    return(this.raiz.getHijoDer().hasElem(a));
                 }
                 else {
                 	return true;
@@ -103,17 +145,17 @@ public class Arbol {
     
     public int findMin() {
         Arbol arbolActual = this;
-        while( !arbolActual.raiz.hi.isEmpty() ) {
-            arbolActual = arbolActual.raiz.hi;
+        while( !arbolActual.getHijoIzq().isEmpty() ) {
+            arbolActual = arbolActual.getHijoIzq();
         }
-        int devuelvo= arbolActual.raiz.dato;
+        int devuelvo= arbolActual.raiz.getDato();
         arbolActual.raiz=null;
         return devuelvo;
     }
     
     public boolean isLeaf() {
         boolean hoja = false;
-        if( (raiz.hi).isEmpty() && (raiz.hd).isEmpty() ) {
+        if( (this.getHijoIzq()).isEmpty() && (this.getHijoDer()).isEmpty() ) {
             hoja = true;
         }
         return hoja;
@@ -127,14 +169,14 @@ public class Arbol {
             	toDelete.raiz = null;
             }
             else {
-                if (!toDelete.raiz.hi.isEmpty() && !toDelete.raiz.hd.isEmpty()) {
-                	toDelete.raiz.dato = toDelete.raiz.hd.findMin();
+                if (!toDelete.getHijoIzq().isEmpty() && !toDelete.getHijoDer().isEmpty()) {
+                	toDelete.raiz.dato = toDelete.getHijoDer().findMin();
                 }
                 else {
-                    if (toDelete.raiz.hi.isEmpty()) {
-                    	toDelete.raiz = toDelete.raiz.hd.raiz;
+                    if (toDelete.getHijoIzq().isEmpty()) {
+                    	toDelete.raiz = toDelete.getHijoDer().raiz;
                     }else{
-                    	toDelete.raiz = toDelete.raiz.hi.raiz;
+                    	toDelete.raiz = toDelete.getHijoIzq().raiz;
                     }
                 }
             }
