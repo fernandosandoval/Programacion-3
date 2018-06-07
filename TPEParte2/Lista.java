@@ -12,45 +12,32 @@ public class Lista{
 		size = 0;
 	}
 	
-	public void insert(Object O) {
-		Nodo temp = new Nodo(O, null);
+	public void insert(Arista A) {
+		Nodo temp = new Nodo(A, null);
 		temp.setNext(first);
 		first = temp;
 		size++;
 	}
 	
 	
-	public void orderedInsert(Object O) {
-		Nodo temp = new Nodo(O, null);
-		Object aux = temp.getInfo();
+	public void orderedInsert(Arista A) {
+		Nodo temp = new Nodo(A, null);
+		Arista aux = temp.getInfo();
 		Nodo puntero = first;	
-		if((isEmpty())||((int)aux < (int)first.info)) {	
+		if((isEmpty())||(aux.getPeso() > first.info.getPeso())) {	
 			temp.setNext(first);
 			first = temp;
 			size++;
 		}
 		else {
-				while ((puntero.next != null)&&((puntero.next.compareTo(aux))!=1)) {     // mientras que O sea igual o mayor a first.next, avanzo
+				while ((puntero.next != null)&&((puntero.next.compareTo(aux))!=1)) {     // mientras que A sea igual o mayor a first.next, avanzo
 					puntero = puntero.next;
 				}
-		        temp.setNext(puntero.next);              // en este punto, O es menor o igual a first, entonces
-		        puntero.setNext(temp);		           // agrego O en la lista
+		        temp.setNext(puntero.next);              // en este punto, A es menor o igual a first, entonces
+		        puntero.setNext(temp);		           // agrego A en la lista
 		     }
 	}
-	
-	public void insertAtLast(Object O) {
-		Nodo temp = new Nodo (O, null);
-		if (isEmpty()) {
-			first = temp;
-		}
-		else {
-			Nodo puntero = first;
-			while(puntero.getNext()!=null) {
-				puntero = puntero.getNext();
-			}
-			puntero.setNext(temp);
-		}
-	}
+
 	
 	public void extract() {
 		if (first!= null) {
@@ -78,46 +65,25 @@ public class Lista{
 		System.out.println();
 	}
 	
-	public Object getFirst() {
-		return first.getInfo();
+	public Nodo getFirst() {
+		return first;
 	}
+	
+	public Nodo getAux() {
+		return aux;
+	}
+	
+	public Nodo getNext() {
+		return aux.getNext();
+	}
+	
+	public void setNext() {
+		this.aux = aux.getNext();
+	}
+	
 	
 	public boolean isEmpty() {
 		return (first == null);
-	}
-	
-	public void generateList(Lista l1, Lista l2) {
-		 Lista li3 = new Lista();
-		 Nodo aux1 = l1.first;
-		 Nodo aux2 = l2.first;
-	   	 while (aux1 != null) {
-	   		while (aux2 != null) {
-	   			 if (aux1.info.equals(aux2.info)) {
-	   				 li3.orderedInsert(aux1.info);
-	   			 }
-	   			 aux2 = aux2.next;
-	   	   		 }
-	   		aux2 = l2.first;
-	   		aux1 = aux1.next;
-	   	 }
-	li3.print();   	 
-	}
-	
-	public void generateOrderedList(Lista l1, Lista l2) {     //cuando las listas ya estan ordenadas
-		 Lista li3 = new Lista();
-		 Nodo aux1 = l1.first;
-		 Nodo aux2 = l2.first;
-	   	 while (aux1 != null) {
-	   		while (aux2 != null) {
-	   			 if (aux1.info.equals(aux2.info)) {
-	   				 li3.insertAtLast(aux1.info);
-	   			 }
-	   			 aux2 = aux2.next;
-	   	   		 }
-	   		aux2 = l2.first;
-	   		aux1 = aux1.next;
-	   	 }
-	li3.print();   	 
 	}
 	
 }

@@ -162,33 +162,41 @@ public abstract class Grafo {
 	}
 	
 	//Comienza el recorrido DFS para busqueda por género desde un género pasado como parámetro
-		public List<String> BXG (String _e) {
+		public void BXG (String _e, int N) {
+			List<String> resultado = new ArrayList<String>();
 			Vertice inicio = this.getVertice(_e);
 			Lista listaAristas = new Lista();
 			if(inicio==null) {
-				List<String>error = new ArrayList<>();
-				error.add("Vertice inexistente");
-				return error;
+				System.out.println("Vertice inexistente");
 			}
+			else {
 			Boolean[]visitados = new Boolean[this.vertices.size()];
 			for(int i=0 ; i<visitados.length ; i++) {
 				visitados[i] = false;
 			}
 			visitados[this.vertices.indexOf(inicio)] = true;
-			
-			return BXG_Visitar(inicio, visitados, listaAristas);
+			resultado = BXG_Visitar(inicio, visitados, listaAristas);		
+    		System.out.println("Lista de los "+N+" generos mas buscados luego de buscar por el genero "+_e);
+			listaAristas.aux = listaAristas.getFirst();
+			while ((listaAristas.getAux()!=null)&&(N!=0)) {
+				System.out.println(listaAristas.getAux().getInfo().getVertice1().getEtiqueta()+"->"+listaAristas.getAux().getInfo().getVertice2().getEtiqueta()+"("+listaAristas.getAux().getInfo().getPeso()+")");
+				listaAristas.aux = listaAristas.getAux().getNext();
+				N--;
+			 	}
+		    }
+			System.out.println();
 		}
 		
 		private List<String> BXG_Visitar(Vertice _v, Boolean[] _vi, Lista listaAristas){
 			List<String>retorno = new ArrayList<String>();
 			//Obtengo los vertices adyacentes al actual
 			List<Vertice> adyacentes = _v.getAdyacentes();
-			System.out.println("Adyacentes de: " + _v.getEtiqueta());
+			//System.out.println("Adyacentes de: " + _v.getEtiqueta());
 			for(Vertice Ve : adyacentes) {
-				System.out.print(Ve.getEtiqueta() + "\t");
+				//System.out.print(Ve.getEtiqueta() + "\t");
 				int pesoArista = (this.getArista(_v.getEtiqueta(), Ve.getEtiqueta()).getPeso());
-				listaAristas.insert(this.getArista(_v.getEtiqueta(), Ve.getEtiqueta()));
-				System.out.println("El peso entre "+_v.getEtiqueta()+" y "+Ve.getEtiqueta()+" es "+pesoArista);
+				listaAristas.orderedInsert(this.getArista(_v.getEtiqueta(), Ve.getEtiqueta()));
+				//System.out.println("El peso entre "+_v.getEtiqueta()+" y "+Ve.getEtiqueta()+" es "+pesoArista);
 			}
 			System.out.println();
 			//Recorro la lista de adyacentes
@@ -198,12 +206,8 @@ public abstract class Grafo {
 					retorno.addAll(BXG_Visitar(v, _vi, listaAristas));
 				}
 			}
-			
+						
 			retorno.add(_v.getEtiqueta());
-//			System.out.println("Lista de aristas");
-//			while (listaAristas.first!=null) {
-//				System.out.println(listaAristas.getFirst().toString());
-//			}
 			return retorno;
 		}
 	

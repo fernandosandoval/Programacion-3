@@ -2,43 +2,43 @@ package TPE2;
 
 public class Nodo
 {
-    protected Object info;
+    protected Arista info;
     protected Nodo next;
     
     
     public Nodo() {
-    	info = null;
-    	next = null;
+    	this.info = null;
+    	this.next = null;
     }
     
-    public Nodo(Object O, Nodo N) {
-    	setInfo(O);
+    public Nodo(Arista A, Nodo N) {
+    	setInfo(A);
         setNext(N);
     }
     
-    public void setInfo(Object O) {
-    	info = O;
+    public void setInfo(Arista A) {
+    	this.info = A;
     }
     
     public void setNext(Nodo N) {
-    	next = N;
+    	this.next = N;
     }
     
-    public Object getInfo() {
-    	return info;
+    public Arista getInfo() {
+    	return this.info;
     }
     
     public Nodo getNext() {
-    	return next;
+    	return this.next;
     }
     
-    public int compareTo(Object O){
+    public int compareTo(Arista A){
 		 
         int estado=-1;
-        if(this.info.equals(O)){
-            //Los objetos son iguales
+        if(this.info.getPeso().equals(A.getPeso())){
+            //Las aristas son iguales
             estado = 0;
-        }else if((int)this.info > (int) O){
+        }else if(this.info.getPeso() < A.getPeso()){
             //El objeto A es mayor que el B pasado por parametro
             estado = 1;
         }
